@@ -11,8 +11,29 @@ Content-Type: application/json
   "description": "Mouse ergonômico sem fio com conexão USB",
   "price": 79.90,
   "quantity": 15,
-  "brand": "Logitech",
+  "brand": " ",
   "sku": "LOG-MOUSE-001",
   "category": "Eletrônicos",
   "supplier": "Distribuidora Tech Brasil"
 }
+
+### UPDATE PRODUCT
+PUT http://localhost:3000/products/000000000000000000000000
+Content-Type: application/json
+
+{
+  "name": "Fone de ouvido Bluetooth",
+  "description": "Fone sem fio com microfone e cancelamento de ruído",
+  "price": 159.90,
+  "quantity": 12,
+  "brand": "JBL",
+  "sku": "JBL-FONE-001",
+  "category": "Eletrônicos",
+  "supplier": "Tech Londrina"
+}
+
+### DELETE PRODUCT
+DELETE http://localhost:3000/products/000000000000000000000000
+
+### TEST INVALID PRODUCT ID
+DELETE http://localhost:3000/products/000000000000000000000000

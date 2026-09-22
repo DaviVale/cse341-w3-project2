@@ -26,13 +26,13 @@
         "tags": [
           "Products"
         ],
-        "description": "Returns all products.",
+        "description": "Returns all products stored in the inventory.",
         "responses": {
           "200": {
             "description": "Products retrieved successfully."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Failed to retrieve products."
           }
         }
       },
@@ -40,7 +40,7 @@
         "tags": [
           "Products"
         ],
-        "description": "Creates a new product.",
+        "description": "Creates a new product in the inventory.",
         "parameters": [
           {
             "name": "body",
@@ -90,8 +90,114 @@
           "201": {
             "description": "Product created successfully."
           },
+          "400": {
+            "description": "Invalid product data."
+          },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Failed to create product."
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Updates an existing product using its MongoDB document id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB id of the product"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated product information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Mouse sem fio"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Mouse ergonômico sem fio com conexão USB"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 79.9
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 15
+                },
+                "brand": {
+                  "type": "string",
+                  "example": "Logitech"
+                },
+                "sku": {
+                  "type": "string",
+                  "example": "LOG-MOUSE-001"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Eletrônicos"
+                },
+                "supplier": {
+                  "type": "string",
+                  "example": "Distribuidora Tech Brasil"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product updated successfully."
+          },
+          "400": {
+            "description": "Invalid product id or product data."
+          },
+          "404": {
+            "description": "Product not found."
+          },
+          "500": {
+            "description": "Failed to update product."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Deletes an existing product using its MongoDB document id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB id of the product"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted successfully."
+          },
+          "400": {
+            "description": "Invalid product id."
+          },
+          "404": {
+            "description": "Product not found."
+          },
+          "500": {
+            "description": "Failed to delete product."
           }
         }
       }
