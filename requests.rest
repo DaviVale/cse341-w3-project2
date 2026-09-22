@@ -1,0 +1,18 @@
+### GET ALL PRODUCTS
+GET http://localhost:3000/products
+
+
+### CREATE A NEW PRODUCT
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Mouse sem fio",
+  "description": "Mouse ergonômico sem fio com conexão USB",
+  "price": 79.90,
+  "quantity": 15,
+  "brand": "Logitech",
+  "sku": "LOG-MOUSE-001",
+  "category": "Eletrônicos",
+  "supplier": "Distribuidora Tech Brasil"
+}

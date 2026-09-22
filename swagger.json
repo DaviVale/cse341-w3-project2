@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Inventory API",
+    "description": "API documentation for the inventory project",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/products/": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Returns all products.",
+        "responses": {
+          "200": {
+            "description": "Products retrieved successfully."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Creates a new product.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Product information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Cafeteira elétrica"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Cafeteira elétrica com capacidade para 30 xícaras"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 149.9
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 8
+                },
+                "brand": {
+                  "type": "string",
+                  "example": "Mondial"
+                },
+                "sku": {
+                  "type": "string",
+                  "example": "MON-CAF-001"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Eletrodomésticos"
+                },
+                "supplier": {
+                  "type": "string",
+                  "example": "Distribuidora Paraná"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product created successfully."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

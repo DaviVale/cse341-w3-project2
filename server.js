@@ -1,0 +1,34 @@
+const express = require('express');
+const mongodb = require('./db/connect');
+const productsRoutes = require('./routes/products');
+const app = express();
+const port = process.env.PORT || 3000;
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+// Allows Express to read JSON data sent in request bodies
+app.use(express.json());
+
+// Serves the interactive Swagger documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Connects requests that start with /products to the product routes
+app.use('/products', productsRoutes);
+
+// Simple route used to verify that the API is online
+app.get('/', (req, res) => {
+  res.send('Inventory API is running');
+});
+
+// Connects to MongoDB before starting the Express server
+mongodb
+  .initDb()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    // Prevents the API from starting if the database connection fails
+    console.error('Server could not start:', error);
+  });
