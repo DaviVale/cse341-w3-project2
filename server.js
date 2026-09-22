@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const categoriesRoutes = require('./routes/categories');
 
 // Allows Express to read JSON data sent in request bodies
 app.use(express.json());
@@ -14,6 +15,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Connects requests that start with /products to the product routes
 app.use('/products', productsRoutes);
+
+// Connects requests that start with /categories to the category routes
+app.use('/categories', categoriesRoutes);
 
 // Simple route used to verify that the API is online
 app.get('/', (req, res) => {

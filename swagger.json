@@ -201,6 +201,155 @@
           }
         }
       }
+    },
+    "/categories/": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "description": "Returns all categories stored in the inventory.",
+        "responses": {
+          "200": {
+            "description": "Categories retrieved successfully."
+          },
+          "500": {
+            "description": "Failed to retrieve categories."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "description": "Creates a new category in the inventory.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Category information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Eletrônicos"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Produtos eletrônicos e acessórios"
+                },
+                "department": {
+                  "type": "string",
+                  "example": "Tecnologia"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Category created successfully."
+          },
+          "400": {
+            "description": "Invalid category data."
+          },
+          "500": {
+            "description": "Failed to create category."
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "tags": [
+          "Categories"
+        ],
+        "description": "Updates an existing category using its MongoDB document id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB id of the category"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated category information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Eletrônicos"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Produtos eletrônicos, acessórios e periféricos"
+                },
+                "department": {
+                  "type": "string",
+                  "example": "Tecnologia"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category updated successfully."
+          },
+          "400": {
+            "description": "Invalid category id or category data."
+          },
+          "404": {
+            "description": "Category not found."
+          },
+          "500": {
+            "description": "Failed to update category."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Categories"
+        ],
+        "description": "Deletes an existing category using its MongoDB document id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB id of the category"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category deleted successfully."
+          },
+          "400": {
+            "description": "Invalid category id."
+          },
+          "404": {
+            "description": "Category not found."
+          },
+          "500": {
+            "description": "Failed to delete category."
+          }
+        }
+      }
     }
   }
 }

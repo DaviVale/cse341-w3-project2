@@ -37,3 +37,32 @@ DELETE http://localhost:3000/products/000000000000000000000000
 
 ### TEST INVALID PRODUCT ID
 DELETE http://localhost:3000/products/000000000000000000000000
+
+### GET ALL CATEGORIES
+GET http://localhost:3000/categories
+
+### CREATE A NEW CATEGORY
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "name": "Eletrônicos",
+  "description": "Produtos eletrônicos e acessórios",
+  "department": "Tecnologia",
+  "active": true
+}
+
+### UPDATE CATEGORY
+PUT http://localhost:3000/categories/6ab2199623d080ceb24a067e
+Content-Type: application/json
+
+{
+  "name": "Eletrônicos",
+  "description": "Produtos eletrônicos, acessórios e periféricos",
+  "department": "Tecnologia",
+  "active": true
+}
+
+### DELETE CATEGORY
+DELETE http://localhost:3000/categories/6ab2199623d080ceb24a067e
+
