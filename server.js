@@ -21,7 +21,14 @@ app.use('/categories', categoriesRoutes);
 
 // Simple route used to verify that the API is online
 app.get('/', (req, res) => {
-  res.send('Inventory API is running');
+  try {
+    return res.status(200).send('Inventory API is running');
+  } catch (error) {
+    // Handles unexpected errors on the root route
+    return res.status(500).json({
+      error: 'Failed to load the API'
+    });
+  }
 });
 
 // Connects to MongoDB before starting the Express server
