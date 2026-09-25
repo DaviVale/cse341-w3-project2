@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const categoriesController = require('../controllers/categories');
+const { isAuthenticated } = require('../middleware/auth');
 
 const {
   categoryValidationRules,
@@ -33,7 +34,7 @@ router.post(
   '/',
   /*
     #swagger.tags = ['Categories']
-    #swagger.description = 'Creates a new category in the inventory.'
+    #swagger.description = 'Creates a new category in the inventory. Authentication is required.'
 
     #swagger.parameters['body'] = {
       in: 'body',
@@ -55,10 +56,15 @@ router.post(
       description: 'Invalid category data.'
     }
 
+    #swagger.responses[401] = {
+      description: 'Authentication required.'
+    }
+
     #swagger.responses[500] = {
       description: 'Failed to create category.'
     }
   */
+  isAuthenticated,
   categoryValidationRules,
   validateCategoryRequest,
   categoriesController.createCategory
@@ -69,7 +75,7 @@ router.put(
   '/:id',
   /*
     #swagger.tags = ['Categories']
-    #swagger.description = 'Updates an existing category using its MongoDB document id.'
+    #swagger.description = 'Updates an existing category using its MongoDB document id. Authentication is required.'
 
     #swagger.parameters['id'] = {
       in: 'path',
@@ -98,6 +104,10 @@ router.put(
       description: 'Invalid category id or category data.'
     }
 
+    #swagger.responses[401] = {
+      description: 'Authentication required.'
+    }
+
     #swagger.responses[404] = {
       description: 'Category not found.'
     }
@@ -106,6 +116,7 @@ router.put(
       description: 'Failed to update category.'
     }
   */
+  isAuthenticated,
   categoryIdValidation,
   categoryValidationRules,
   validateCategoryRequest,
@@ -117,7 +128,7 @@ router.delete(
   '/:id',
   /*
     #swagger.tags = ['Categories']
-    #swagger.description = 'Deletes an existing category using its MongoDB document id.'
+    #swagger.description = 'Deletes an existing category using its MongoDB document id. Authentication is required.'
 
     #swagger.parameters['id'] = {
       in: 'path',
@@ -134,6 +145,10 @@ router.delete(
       description: 'Invalid category id.'
     }
 
+    #swagger.responses[401] = {
+      description: 'Authentication required.'
+    }
+
     #swagger.responses[404] = {
       description: 'Category not found.'
     }
@@ -142,6 +157,7 @@ router.delete(
       description: 'Failed to delete category.'
     }
   */
+  isAuthenticated,
   categoryIdValidation,
   validateCategoryRequest,
   categoriesController.deleteCategory

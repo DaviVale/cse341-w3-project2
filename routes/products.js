@@ -1,8 +1,7 @@
 const express = require('express');
-
 const router = express.Router();
-
 const productsController = require('../controllers/products');
+const { isAuthenticated } = require('../middleware/auth');
 
 const {
   productValidationRules,
@@ -33,7 +32,7 @@ router.post(
   '/',
   /*
     #swagger.tags = ['Products']
-    #swagger.description = 'Creates a new product in the inventory.'
+    #swagger.description = 'Creates a new product in the inventory. Authentication is required.'
 
     #swagger.parameters['body'] = {
       in: 'body',
@@ -59,10 +58,15 @@ router.post(
       description: 'Invalid product data.'
     }
 
+    #swagger.responses[401] = {
+      description: 'Authentication required.'
+    }
+
     #swagger.responses[500] = {
       description: 'Failed to create product.'
     }
   */
+  isAuthenticated,
   productValidationRules,
   validateRequest,
   productsController.createProduct
@@ -73,7 +77,7 @@ router.put(
   '/:id',
   /*
     #swagger.tags = ['Products']
-    #swagger.description = 'Updates an existing product using its MongoDB document id.'
+    #swagger.description = 'Updates an existing product using its MongoDB document id. Authentication is required.'
 
     #swagger.parameters['id'] = {
       in: 'path',
@@ -106,6 +110,10 @@ router.put(
       description: 'Invalid product id or product data.'
     }
 
+    #swagger.responses[401] = {
+      description: 'Authentication required.'
+    }
+
     #swagger.responses[404] = {
       description: 'Product not found.'
     }
@@ -114,6 +122,7 @@ router.put(
       description: 'Failed to update product.'
     }
   */
+  isAuthenticated,
   productIdValidation,
   productValidationRules,
   validateRequest,
@@ -125,7 +134,7 @@ router.delete(
   '/:id',
   /*
     #swagger.tags = ['Products']
-    #swagger.description = 'Deletes an existing product using its MongoDB document id.'
+    #swagger.description = 'Deletes an existing product using its MongoDB document id. Authentication is required.'
 
     #swagger.parameters['id'] = {
       in: 'path',
@@ -142,6 +151,10 @@ router.delete(
       description: 'Invalid product id.'
     }
 
+    #swagger.responses[401] = {
+      description: 'Authentication required.'
+    }
+
     #swagger.responses[404] = {
       description: 'Product not found.'
     }
@@ -150,6 +163,7 @@ router.delete(
       description: 'Failed to delete product.'
     }
   */
+  isAuthenticated,
   productIdValidation,
   validateRequest,
   productsController.deleteProduct

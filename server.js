@@ -1,17 +1,44 @@
+require('dotenv').config();
+
 const express = require('express');
+const session = require('express-session');
 const mongodb = require('./db/connect');
 const productsRoutes = require('./routes/products');
-const app = express();
-const port = process.env.PORT || 3000;
+const categoriesRoutes = require('./routes/categories');
+const passport = require('./config/passport');
+const authRoutes = require('./routes/auth');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const categoriesRoutes = require('./routes/categories');
+
+const app = express();
+const port = process.env.PORT || 3000;
 
 // Allows Express to read JSON data sent in request bodies
 app.use(express.json());
 
+// Creates a session for authenticated users
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60
+    }
+  })
+);
+
+// Initializes Passport authentication
+app.use(passport.initialize());
+
+// Allows Passport to use Express sessions
+app.use(passport.session());
+
 // Serves the interactive Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Connects authentication requests to the OAuth routes
+app.use('/auth', authRoutes);
 
 // Connects requests that start with /products to the product routes
 app.use('/products', productsRoutes);

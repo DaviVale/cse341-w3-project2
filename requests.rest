@@ -66,3 +66,28 @@ Content-Type: application/json
 ### DELETE CATEGORY
 DELETE http://localhost:3000/categories/6ab2199623d080ceb24a067e
 
+### TEST PROTECTED PRODUCT ROUTE
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Produto teste",
+  "description": "Produto usado para testar autenticação",
+  "price": 10.00,
+  "quantity": 1,
+  "brand": "Teste",
+  "sku": "TEST-001",
+  "category": "Teste",
+  "supplier": "Fornecedor Teste"
+}
+
+### TEST PROTECTED CATEGORY ROUTE
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "name": "Teste",
+  "description": "Categoria usada para testar autenticação",
+  "department": "Teste",
+  "active": true
+}
